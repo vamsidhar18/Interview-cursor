@@ -90,7 +90,7 @@ Interview-cursor/
 - `google-generativeai>=0.3.0`: AI integration
 - `pandas>=2.0.0`: Data manipulation
 - `plotly>=5.15.0`: Interactive charts
-- `python-dotenv>=1.0.0`: Environment variables
+- `python-dotenv>=1.0.0`: Environment variables (optional, for local development)
 
 ### **Data Persistence**
 - Automatic saving of progress

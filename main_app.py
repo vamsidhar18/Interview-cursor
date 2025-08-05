@@ -9,10 +9,14 @@ import plotly.graph_objects as go
 from typing import Dict, List, Any
 import re
 import google.generativeai as genai
-from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+# Optional dotenv import for local development
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    # dotenv not available, continue without it
+    pass
 
 # Page configuration
 st.set_page_config(
