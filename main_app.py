@@ -261,7 +261,7 @@ st.markdown("""
         animation: glow 2s ease-in-out infinite alternate;
     }
 </style>
-""", unsafe_allow_html=True) 
+""", unsafe_allow_html=True)
 
 # Data persistence functions
 def save_user_data():
@@ -573,16 +573,16 @@ def get_ai_response(prompt: str, context: str = "", is_interviewer: bool = False
             """
         else:
             interviewer_prompt = f"""
-            You are an expert Amazon SDE II interview coach. You provide detailed, constructive feedback and guidance.
-            
-            Context: {context}
-            
-            User: {prompt}
-            
-            Provide a comprehensive response that includes:
-            1. Direct answer to the question/request
-            2. Specific feedback and suggestions
-            3. Areas for improvement
+        You are an expert Amazon SDE II interview coach. You provide detailed, constructive feedback and guidance.
+        
+        Context: {context}
+        
+        User: {prompt}
+        
+        Provide a comprehensive response that includes:
+        1. Direct answer to the question/request
+        2. Specific feedback and suggestions
+        3. Areas for improvement
             4. Actionable advice for Amazon interviews
             """
         
@@ -866,7 +866,7 @@ def evaluate_answer(question: dict, answer: str, category: str) -> dict:
     Provide evaluation in this format:
     Score: X/10
     Strengths: [list specific strengths]
-    Weaknesses: [list areas for improvement]  
+    Weaknesses: [list areas for improvement]
     Suggestions: [actionable suggestions for improvement]
     Amazon Focus: [how this aligns with Amazon's standards]
     """
@@ -881,7 +881,7 @@ def evaluate_answer(question: dict, answer: str, category: str) -> dict:
         'score': score,
         'feedback': ai_feedback,
         'timestamp': datetime.now()
-    } 
+    }
 
 def start_live_interview():
     """Start a live interview session with real-time interaction"""
@@ -1192,25 +1192,25 @@ def main():
     if st.session_state.live_interview_mode:
         conduct_live_interview()
     else:
-        # Sidebar navigation
+    # Sidebar navigation
         st.sidebar.header("📊 Navigation")
-        page = st.sidebar.selectbox(
-            "Choose Mode",
+    page = st.sidebar.selectbox(
+        "Choose Mode",
             ["🏠 Dashboard", "🎪 Live Interview", "💬 AI Chat Coach", "📝 Mock Interview", "📈 Progress Tracking", "📚 Resources"]
-        )
-        
-        if page == "🏠 Dashboard":
-            show_dashboard()
-        elif page == "🎪 Live Interview":
-            show_live_interview_page()
-        elif page == "💬 AI Chat Coach":
-            show_chat_coach()
-        elif page == "📝 Mock Interview":
-            show_mock_interview()
-        elif page == "📈 Progress Tracking":
-            show_progress_tracking()
-        elif page == "📚 Resources":
-            show_resources()
+    )
+    
+    if page == "🏠 Dashboard":
+        show_dashboard()
+    elif page == "🎪 Live Interview":
+        show_live_interview_page()
+    elif page == "💬 AI Chat Coach":
+        show_chat_coach()
+    elif page == "📝 Mock Interview":
+        show_mock_interview()
+    elif page == "📈 Progress Tracking":
+        show_progress_tracking()
+    elif page == "📚 Resources":
+        show_resources()
 
 def show_live_interview_page():
     """Live interview setup page"""
@@ -1419,9 +1419,9 @@ def show_dashboard():
     if total_questions > 0:
         st.subheader("📈 Performance Analytics")
         
-        col1, col2 = st.columns(2)
-        
-        with col1:
+    col1, col2 = st.columns(2)
+    
+    with col1:
             # Create performance trend chart
             if st.session_state.performance_data['timestamps']:
                 df_data = []
@@ -1438,28 +1438,28 @@ def show_dashboard():
                     fig = px.line(df, x='Date', y='Score', color='Type', title="Performance Progress Over Time")
                     fig.update_layout(height=350, yaxis_range=[0, 10])
                     st.plotly_chart(fig, use_container_width=True)
+    
+    with col2:
+        # Skill breakdown radar chart
+        skills = ['DSA', 'System Design', 'Behavioral']
+        scores = [
+            sum(st.session_state.performance_data['dsa_scores']) / max(len(st.session_state.performance_data['dsa_scores']), 1) if st.session_state.performance_data['dsa_scores'] else 0,
+            sum(st.session_state.performance_data['system_design_scores']) / max(len(st.session_state.performance_data['system_design_scores']), 1) if st.session_state.performance_data['system_design_scores'] else 0,
+            sum(st.session_state.performance_data['behavioral_scores']) / max(len(st.session_state.performance_data['behavioral_scores']), 1) if st.session_state.performance_data['behavioral_scores'] else 0
+        ]
         
-        with col2:
-            # Skill breakdown radar chart
-            skills = ['DSA', 'System Design', 'Behavioral']
-            scores = [
-                sum(st.session_state.performance_data['dsa_scores']) / max(len(st.session_state.performance_data['dsa_scores']), 1) if st.session_state.performance_data['dsa_scores'] else 0,
-                sum(st.session_state.performance_data['system_design_scores']) / max(len(st.session_state.performance_data['system_design_scores']), 1) if st.session_state.performance_data['system_design_scores'] else 0,
-                sum(st.session_state.performance_data['behavioral_scores']) / max(len(st.session_state.performance_data['behavioral_scores']), 1) if st.session_state.performance_data['behavioral_scores'] else 0
-            ]
-            
-            fig = go.Figure(data=go.Scatterpolar(
-                r=scores,
-                theta=skills,
-                fill='toself',
-                name='Your Skills'
-            ))
-            fig.update_layout(
-                height=350,
-                polar=dict(radialaxis=dict(range=[0, 10])),
-                title="Skill Breakdown"
-            )
-            st.plotly_chart(fig, use_container_width=True)
+        fig = go.Figure(data=go.Scatterpolar(
+            r=scores,
+            theta=skills,
+            fill='toself',
+            name='Your Skills'
+        ))
+        fig.update_layout(
+            height=350,
+            polar=dict(radialaxis=dict(range=[0, 10])),
+            title="Skill Breakdown"
+        )
+        st.plotly_chart(fig, use_container_width=True)
 
 def show_chat_coach():
     """AI Chat Coach with Gemini"""
@@ -1532,15 +1532,15 @@ def show_chat_coach():
                 })
                 
                 context = f"Amazon SDE II interview preparation. User preparing for interview."
-                ai_response = get_ai_response(suggestion, context)
-                
-                st.session_state.chat_history.append({
-                    'role': 'assistant',
-                    'content': ai_response,
-                    'timestamp': datetime.now()
-                })
-                
-                st.rerun()
+            ai_response = get_ai_response(suggestion, context)
+            
+            st.session_state.chat_history.append({
+                'role': 'assistant',
+                'content': ai_response,
+                'timestamp': datetime.now()
+            })
+            
+            st.rerun()
 
 def show_mock_interview():
     """Traditional mock interview mode"""
@@ -1612,34 +1612,34 @@ def show_dsa_practice():
                 full_answer = f"Code:\n{code_solution}\n\nExplanation:\n{explanation}"
                 evaluation = evaluate_answer(question['question'], full_answer, "DSA")
                 
-                        # Store performance data
-        st.session_state.performance_data['dsa_scores'].append(evaluation['score'])
-        st.session_state.performance_data['timestamps'].append(datetime.now())
-        
-        # Save data automatically
-        save_user_data()
-        
-        # Show feedback
-        if evaluation['score'] >= 7:
-            st.markdown(f"""
-            <div class="feedback-positive">
-                <h4>✅ Excellent! Score: {evaluation['score']}/10</h4>
-                <p>{evaluation['feedback']}</p>
-            </div>
-            """, unsafe_allow_html=True)
-        else:
-            st.markdown(f"""
-            <div class="feedback-negative">
-                <h4>📈 Room for Improvement - Score: {evaluation['score']}/10</h4>
-                <p>{evaluation['feedback']}</p>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        # Clear current question
-        st.session_state.current_question = None
-        st.session_state.current_category = None
-    else:
-        st.error("Please provide both code solution and explanation.")
+                # Store performance data
+                st.session_state.performance_data['dsa_scores'].append(evaluation['score'])
+                st.session_state.performance_data['timestamps'].append(datetime.now())
+                
+                # Save data automatically
+                save_user_data()
+                
+                # Show feedback
+                if evaluation['score'] >= 7:
+                    st.markdown(f"""
+                    <div class="feedback-positive">
+                        <h4>✅ Excellent! Score: {evaluation['score']}/10</h4>
+                        <p>{evaluation['feedback']}</p>
+                    </div>
+                    """, unsafe_allow_html=True)
+                else:
+                    st.markdown(f"""
+                    <div class="feedback-negative">
+                        <h4>📈 Room for Improvement - Score: {evaluation['score']}/10</h4>
+                        <p>{evaluation['feedback']}</p>
+                    </div>
+                    """, unsafe_allow_html=True)
+                
+                # Clear current question
+                st.session_state.current_question = None
+                st.session_state.current_category = None
+            else:
+                st.error("Please provide both code solution and explanation.")
 
 def show_system_design_practice():
     """System design practice mode"""
@@ -1944,9 +1944,9 @@ def show_progress_tracking():
         
         if not recommendations:
             recommendations.append("🎉 **Excellent Progress!** - You're performing well across all areas. Keep practicing to maintain your edge!")
-        
-        for rec in recommendations:
-            st.markdown(f"• {rec}")
+    
+    for rec in recommendations:
+        st.markdown(f"• {rec}")
     else:
         st.markdown("""
         **🚀 Get Started:**
@@ -2141,4 +2141,4 @@ def show_resources():
         """)
 
 if __name__ == "__main__":
-    main() 
+    main()
